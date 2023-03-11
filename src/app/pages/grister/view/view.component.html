@@ -1,6 +1,9 @@
-<button type="button" class="" (click)="getItems()"> get items</button>
-<button type="button" (click)="addItem()" >add Item</button>
-<div class="row">
+<div class="mb-4">
+  <button type="button" class="btn btn-sm btn-outline-info me-2" (click)="getItems()"> get items</button>
+  <button type="button" class="btn btn-sm btn-outline-success"  (click)="addItem()" >add Item</button>
+  
+</div>
+<div class="d-flex flex-row">
   <div class="col-2">
     afdsfasd
   </div>
@@ -19,15 +22,15 @@
               <button mat-icon-button mat-raised-button class="drag-handler">
                 <mat-icon>open_with</mat-icon>
               </button>
-              <button mat-icon-button mat-raised-button class="remove-button" (mousedown)="removeItem($event, item)"
+              <button mat-icon-button mat-raised-button class="btn btn-sm remove-button" (mousedown)="removeItem($event, item)"
                 (touchstart)="removeItem($event, item)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
             <label *ngIf="!item.hasContent">{{item.label}}</label>
-            <button mat-mini-fab *ngIf="!item.hasContent" (mousedown)="removeItem($event, item)"
+            <button type="button" class="btn btn-sm " *ngIf="!item.hasContent" (mousedown)="removeItem($event, item)"
               (touchstart)="removeItem($event, item)">
-              <mat-icon>delete</mat-icon>
+              <i class="icon icon-delete">delete</i>
             </button>
           </div>
         </gridster-item>
