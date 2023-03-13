@@ -11,14 +11,17 @@ import {CompactType, DisplayGrid, GridsterConfig, GridsterItem, GridType} from '
 export class ViewComponent implements OnInit {
   options: GridsterConfig;
   dashboard: Array<GridsterItem>;
-
+  boxInfo: any = {
+    type: 'video'
+  };
+  resData = '';
   constructor() { }
 
   ngOnInit() {
     this.options = {
       gridType: GridType.VerticalFixed,
       compactType: CompactType.None,
-      margin: 4,
+      margin: 6,
       outerMargin: true,
       outerMarginTop: null,
       outerMarginRight: null,
@@ -30,16 +33,16 @@ export class ViewComponent implements OnInit {
       maxCols: 2,
       minRows: 1,
       maxRows: 10,
-      maxItemCols: 100,
+      maxItemCols: 2,
       minItemCols: 1,
-      maxItemRows: 100,
+      maxItemRows: 1,
       minItemRows: 1,
-      maxItemArea: 2500,
+      maxItemArea: 20,
       minItemArea: 1,
       defaultItemCols: 1,
       defaultItemRows: 1,
-      fixedColWidth: 145,
-      fixedRowHeight: 105,
+      fixedColWidth: 120,
+      fixedRowHeight: 180,
       keepFixedHeightInMobile: false,
       keepFixedWidthInMobile: false,
       scrollSensitivity: 10,
@@ -78,11 +81,25 @@ export class ViewComponent implements OnInit {
       // {cols: 1, rows: 1, y: 2, x: 5},
       // {cols: 1, rows: 1, y: 1, x: 0},
       // {cols: 1, rows: 1, y: 1, x: 0},
-      {cols: 2, rows: 1, y: 0, x: 0, minItemRows: 1, minItemCols: 1, label: 'Min rows & cols = 2'},
-      {cols: 2, rows: 1, y: 0, x: 0, maxItemRows: 1, maxItemCols: 1, label: 'Max rows & cols = 2'},
-      {cols: 2, rows: 1, y: 0, x: 0, dragEnabled: true, resizeEnabled: true, label: 'Drag&Resize Enabled'},
-      {cols: 1, rows: 1, y: 0, x: 0, dragEnabled: false, resizeEnabled: false, label: 'Drag&Resize Disabled'},
-      {cols: 1, rows: 1, y: 0, x: 0}
+      {cols: 2, rows: 1, y: 0, x: 0, label: '', boxInfo: {
+        height: 200,
+        type: 'image',
+        url: 'https://img0.baidu.com/it/u=242767209,2541342896&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
+        
+      }},
+      {cols: 2, rows: 1, y: 0, x: 0,fixedRowHeight: 300, boxInfo:{
+        type: 'video',
+        url: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+      } },
+      {
+        cols: 2, rows: 1, y: 0, x: 0, label: '',
+        boxInfo: {
+          type: 'image',
+          url: 'https://img0.baidu.com/it/u=2670710653,1192831318&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=500'
+        }
+      },//dragEnabled: true, resizeEnabled: true, label: 'Drag&Resize Enabled'},
+      // {cols: 1, rows: 1, y: 0, x: 0, boxInfo:{} },//dragEnabled: false, resizeEnabled: false, label: 'Drag&Resize Disabled'},
+      // {cols: 1, rows: 1, y: 0, x: 0, boxInfo:{} }
     ];
   }
 
@@ -97,12 +114,20 @@ export class ViewComponent implements OnInit {
     $event.stopPropagation();
     this.dashboard.splice(this.dashboard.indexOf(item), 1);
   }
+  settingItem($event, item, index) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    console.log('setting item', item, index);
+    const boxInfo = item.boxInfo;
+    this.boxInfo = this.dashboard[index].boxInfo;
+  }
 
   addItem() {
-    this.dashboard.push({x: 0, y: 0, cols: 1, rows: 1,minItemRows: 1,});
+    this.dashboard.push({x: 0, y: 0, cols: 2, rows: 1, boxInfo:{}});
   }
 
   getItems(){
     console.log('items',this.dashboard)
+    this.resData = JSON.stringify(this.dashboard);
   }
 }

@@ -1,41 +1,73 @@
-<div class="mb-4">
-  <button type="button" class="btn btn-sm btn-outline-info me-2" (click)="getItems()"> get items</button>
-  <button type="button" class="btn btn-sm btn-outline-success"  (click)="addItem()" >add Item</button>
+<!-- <div class="mb-4">
   
-</div>
+</div> -->
 <div class="d-flex flex-row">
   <div class="col-2">
-    afdsfasd
+    <!-- <button type="button" class="btn btn-sm btn-outline-success"  " >
+      <i nz-icon [nzType]="'plus'"></i>
+    </button> -->
+    <button style="line-height:0px;" nz-button nzType="primary" nzShape="circle"  nzSize="large" (click)="addItem()"><span nz-icon nzType="plus" ></span></button>
   </div>
-  <div>
-    <div style="width:500px;">
+  <div class="col-6">
+    <div style="width:340px; border: 1px solid #636262; padding: 30px 10px; border-radius: 20px;" >
       <gridster [options]="options">
-        <gridster-item [item]="item" *ngFor="let item of dashboard">
-          <div class="button-holder">
-            <div class="gridster-item-content" *ngIf="item.hasContent">
-              <div class="stuff">
-                <span>Some content to select and click without dragging the widget</span>
-                <a href="https://www.google.com" target="_blank">Link to Google</a>
-              </div>
-            </div>
-            <div class="item-buttons" *ngIf="item.hasContent">
-              <button mat-icon-button mat-raised-button class="drag-handler">
-                <mat-icon>open_with</mat-icon>
-              </button>
-              <button mat-icon-button mat-raised-button class="btn btn-sm remove-button" (mousedown)="removeItem($event, item)"
-                (touchstart)="removeItem($event, item)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-            <label *ngIf="!item.hasContent">{{item.label}}</label>
-            <button type="button" class="btn btn-sm " *ngIf="!item.hasContent" (mousedown)="removeItem($event, item)"
-              (touchstart)="removeItem($event, item)">
-              <i class="icon icon-delete">delete</i>
-            </button>
+        <gridster-item [item]="item" *ngFor="let item of dashboard; let idx = index">
+          
+          <ng-container *ngIf="item.boxInfo.type==='image'">
+            <img [src]="(item.boxInfo&&item.boxInfo.url)?item.boxInfo.url:''" style="width:100%;object-fit: cover;" />
+          </ng-container>
+          <ng-container *ngIf="item.boxInfo.type==='video'">
+            <video controls style="width:100%" >
+              <source [src]="(item.boxInfo&&item.boxInfo.url)?item.boxInfo.url:''" type="video/mp4" />
+            </video>
+          </ng-container>
+          <div class="position-absolute top-0 end-0 p-1">
+            <!-- <nz-button-group nzSize="small"> -->
+              <button nz-button nzType="circle" nzSize="small" class="me-1" style="line-height:0px;" (mousedown)="settingItem($event, item, idx)"><span nz-icon nzType="setting" ></span></button>
+              <button nz-button nzType="circle" nzSize="small" class=" text-danger" nzDanger style="line-height:0px;" (mousedown)="removeItem($event, item)" ><span nz-icon nzType="close" ></span></button>
+            <!-- </nz-button-group> -->
+            <!-- <button type="button" class="text-primary""><ion-icon name="hammer-outline"></ion-icon></button>
+            <button type="button" class="text-danger"><ion-icon name="close-outline"></ion-icon></button>
+           -->
           </div>
         </gridster-item>
       </gridster>
     </div>
   </div>
-  <div></div>
+  <div class="col-4 text-right border-start border-light ps-2">
+    <div class="row  mb-1">
+      <div class="col-3 text-end">类型</div>
+      <div class="col-9">
+        <nz-select [(ngModel)]="boxInfo.type" nzPlaceHolder="请选择类型">
+          <nz-option nzValue="image" nzLabel="图片"></nz-option>
+          <nz-option nzValue="video" nzLabel="视频"></nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-3 text-end"><span>地址</span></div>
+      <div class="col-9">
+        <input nz-input  placeholder="请输入图片或视频地址" [(ngModel)]="boxInfo.url" />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-3 text-end"><span>跳转路径</span></div>
+      <div class="col-9">
+        <input nz-input  placeholder="请输入图片或视频地址" [(ngModel)]="boxInfo.redirectTo" />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-3 text-end"><span>跳转参数</span></div>
+      <div class="col-9">
+        <input nz-input  placeholder="请输入图片或视频地址" [(ngModel)]="boxInfo.redirectParam" />
+      </div>
+    </div>
+    <div class="row border-top border-info pt-2 mt-5">
+      <div class="col">
+        <button type="button" class="btn btn-sm btn-outline-info me-2" (click)="getItems()"> get items</button>
+        <textarea rows="10" nz-input [(ngModel)]="resData"></textarea>
+        <!-- <textarea [ngModel]="resData" style="width:100%" rows="30"></textarea> -->
+      </div>
+    </div>
+  </div>
 </div>

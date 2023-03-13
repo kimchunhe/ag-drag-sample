@@ -4,7 +4,10 @@ import { GristerRoutingModule } from './grister-routing.module';
 import { GridsterModule } from 'angular-gridster2';
 import { ViewComponent } from './view/view.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import {MatIconModule} from '@angular/material/icon';
     GridsterModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    NzSelectModule,
+    NzInputModule,
+    NzIconModule,
+    NzButtonModule,
   ]
 })
 export class GristerModule { }
