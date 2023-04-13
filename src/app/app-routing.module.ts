@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'grister2',
     loadChildren: () => import('./pages/grister2/grister2.module').then(m => m.Grister2Module)
+  },
+  {
+    path: 'drag',
+    loadChildren: () => import('./pages/drag-basic/drag-basic.module').then(m => m.DragBasicModule)
   }
 ];
 
