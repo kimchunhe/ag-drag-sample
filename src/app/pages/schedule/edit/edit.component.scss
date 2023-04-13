@@ -1,0 +1,53 @@
+.container1 {
+    padding: 10px;
+}
+
+.fix-120 {
+    width: 120px;
+}
+
+.sch-cell-content {
+    position: relative;
+    background-color: #ffff00;
+    height: 100%;
+}
+
+.sch-item-1 {
+    border: 1px solid #999900;
+    background-color: #cfe2ff;
+    border-radius: 4px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    /* width: 100%; */
+}
+
+.sch-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    width: 100%;
+    border-left: 1px solid #e3e8eeff;
+    border-top: 1px solid #e3e8eeff;
+    background-color: #ffffff;
+}
+
+.sch-table td {
+    height: 30px;
+}
+
+.sch-table .sch-section {
+    width: 180px;
+    position: sticky;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 200;
+}
+
+.sch-table thead>tr>th,
+.sch-table tbody>tr>td {
+    border-right: 1px solid #e3e8eeff;
+    border-bottom: 1px solid #e3e8eeff;
+    /* padding: 0.3rem; */
+}

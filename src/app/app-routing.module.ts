@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'drag',
     loadChildren: () => import('./pages/drag-basic/drag-basic.module').then(m => m.DragBasicModule)
+  },
+  {
+    path: 'schedule',
+    loadChildren: () => import('./pages/schedule/schedule.module').then(m => m.ScheduleModule)
   }
 ];
 
