@@ -2,6 +2,51 @@
 <!-- <a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
   <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
 </a> -->
-<div class="p-3">
-  <router-outlet></router-outlet>
-</div>
+<nz-layout class="left-layout">
+  <nz-header></nz-header>
+  <nz-layout class="right-layout">
+    <nz-sider>
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-menu-item (click)="gotoPage('grister/view')">
+          <i nz-icon nzType="file"></i>
+          <span>grister</span>
+        </li>
+        <li nz-menu-item (click)="gotoPage('drag/edit')">
+          <i nz-icon nzType="video-camera"></i>
+          <span>Drag Basic</span>
+        </li>
+        <li nz-menu-item (click)="gotoPage('schedule/edit')">
+          <i nz-icon nzType="upload"></i>
+          <span>schedule</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="bar-chart"></i>
+          <span>nav 4</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="cloud-o"></i>
+          <span>nav 5</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="appstore-o"></i>
+          <span>nav 6</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="team"></i>
+          <span>nav 7</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="shop"></i>
+          <span>nav 8</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-content>
+      <div class="p-3">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+  <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer>
+</nz-layout>

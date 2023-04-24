@@ -1,26 +1,47 @@
-<div class="container1"  (window:resize)="onCellSize($event)">
-    <div>页面resize次数：{{resizeCount}}</div>
-    <table #schBoard class="table table-bordered sch-table">
-        <thead>
-            <tr>
-                <th class="sch-section"></th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
-                <th>8</th>
-                <th>9</th>
-                <th>10</th>
-                <th>11</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="sch-section ">场地1</td>
-                <td></td>
+<div class="container1" (window:resize)="onCellSize($event)">
+  <div>页面resize次数：{{resizeCount}}</div>
+  <table #schBoard class="sch-table">
+    <thead>
+      <tr>
+        <th class="sch-section"></th>
+        <ng-container *ngFor="let data of dateItems">
+          <th class="sch-date-of-month" style="min-width:20px;">{{data.day}}</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <ng-container *ngFor="let sch of schedules">
+          <td class="sch-section ">{{sch.label}}</td>
+          <ng-container *ngFor="let data of dateItems">
+            <ng-container *ngIf="data.length>0; else elseBlock">
+              <td class="p-0" id="{{data.strDate}}" class="{{sch.startDate}}">
+                <div class="position-relative" 
+                  [style.height]="defaultCellHeight*(sch.data.length||1)+'px'"
+                >
+                  <div class="sch-item position-absolute rounded bg-light border border-grey" style="top:0; left:50%; "
+                    [style.width]="cellWidth*5+'px'"
+                    [style.height]="defaultCellHeight+'px'"
+                    >
+                    <div class="position-absolute bg-info"
+                    [style.height]="defaultCellHeight+'px'"
+                    [style.left]="20+'px'">fasdfds</div>
+                  </div>
+                  <div class="sch-item position-absolute rounded-start bg-danger " style="top:30px; left:50%; "
+                    [style.width]="cellWidth*4+'px'"
+                    [style.height]="defaultCellHeight+'px'">
+                    dfadf
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <ng-template #elseBlock>
+              <td id="{{data.strDate}}" class="{{sch.startDate}}" style="min-width:20px;"></td>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+
+        <!-- <td></td>
                 <td></td>
     <td class="sch-cell p-0">
                     <div class="sch-cell-content">
@@ -34,8 +55,8 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+                <td></td> -->
+      </tr>
+    </tbody>
+  </table>
 </div>
