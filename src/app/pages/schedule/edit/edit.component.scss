@@ -58,3 +58,12 @@
   padding: 5px;
   text-align: center;
 }
+.sch-table .weekend {
+  background-color: rgba(235,235,235,.3);
+}
+
+.sch-table .sch-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -3,60 +3,82 @@
   <table #schBoard class="sch-table">
     <thead>
       <tr>
-        <th class="sch-section"></th>
+        <th rowspan="3" class="sch-section"></th>
+        <th colSpan="{{dateItems.length||1}}" class="p-0">
+          <div class="d-flex">
+            <div >
+              <button type="button" class="btn btn-sm btn-light"><i class="fas fa-edit"></i>&lt;</button>
+              <span class="h4 m-0">2023-04</span>
+              <button type="button" class="btn btn-sm btn-light"><i class="fas fa-edit"></i>&gt;</button>
+            </div>
+            <div></div>
+          </div>
+        </th>
+      </tr>
+      <tr>
         <ng-container *ngFor="let data of dateItems">
-          <th class="sch-date-of-month" style="min-width:20px;">{{data.day}}</th>
+          <th class="sch-date-of-month {{data.week == 0 ||data.week==6?' weekend text-success':''}}"
+            style="min-width:20px;">{{data.day}}</th>
+        </ng-container>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let data of dateItems">
+          <th class="sch-date-of-month {{data.week == 0 ||data.week==6?' weekend text-success':''}}"
+            >{{weekNameMap[data.week]}}</th>
+        </ng-container>
+      </tr>
+      <tr>
+        <th class="sch-section">节假日</th>
+        <ng-container *ngFor="let data of dateItems">
+          <th class="sch-date-of-month {{data.week == 0 ||data.week==6?' weekend text-success':''}}"
+            style="min-width:20px;"></th>
         </ng-container>
       </tr>
     </thead>
     <tbody>
+      
+      <ng-container *ngFor="let sch of schedules">
       <tr>
-        <ng-container *ngFor="let sch of schedules">
           <td class="sch-section ">{{sch.label}}</td>
-          <ng-container *ngFor="let data of dateItems">
-            <ng-container *ngIf="data.length>0; else elseBlock">
-              <td class="p-0" id="{{data.strDate}}" class="{{sch.startDate}}">
-                <div class="position-relative" 
-                  [style.height]="defaultCellHeight*(sch.data.length||1)+'px'"
-                >
-                  <div class="sch-item position-absolute rounded bg-light border border-grey" style="top:0; left:50%; "
-                    [style.width]="cellWidth*5+'px'"
-                    [style.height]="defaultCellHeight+'px'"
-                    >
-                    <div class="position-absolute bg-info"
-                    [style.height]="defaultCellHeight+'px'"
-                    [style.left]="20+'px'">fasdfds</div>
-                  </div>
-                  <div class="sch-item position-absolute rounded-start bg-danger " style="top:30px; left:50%; "
+          <ng-container *ngFor="let data of dateItems; let idxDay = index">
+            <ng-container *ngIf="idxDay == 0; else elseBlock">
+              <td class="p-0" id="{{data.strDate}}" class="{{sch.startDate}} {{data.week == 0 ||data.week==6?' weekend':''}}">
+                <div class="position-relative" style.height="{{(defaultCellHeight*(sch.data.length||1)) +'px'}}">
+                  <ng-container *ngFor="let item of sch.data; let idxItem = index">
+
+                    <div class="sch-item position-absolute {{item.roundType||''}} border border-grey d-flex" style="overflow: hidden;"
+                      [style.top]="defaultCellHeight * idxItem + 'px'" 
+                      [style.left]="cellWidth*(item.startDay-1) + cellWidth*item.startOffset - 1 + 'px'"
+                      [style.width]="cellWidth*(item.endDay - item.startDay+1) - cellWidth*item.startOffset +'px'"
+                      [style.height]="defaultCellHeight-2+'px'">
+                      <div class="" [style.width]="item.constructionRate" style.backgroundColor="{{(item.color||'#bbbbbb')+'99'}}"></div>
+                      <div class="" [style.width]="'0%'"></div>
+                      <div class="" [style.width]="item.eventRate" style.backgroundImage="linear-gradient({{colorShade((item.color||'#bbbbbb'),20)}},{{colorShade((item.color||'#bbbbbb'),-20)}})"></div>
+                      <div class="" [style.width]="'0%'"></div>
+                      <div class="" [style.width]="item.withdrawRate" style.backgroundColor="{{(item.color||'#bbbbbb')+'99'}}"></div>
+                    </div>
+                    <div class="sch-item sch-cover position-absolute  {{item.roundType||''}} border border-grey"
+                      [style.top]="defaultCellHeight * idxItem + 'px'" 
+                      [style.left]="cellWidth*(item.startDay-1) + cellWidth*item.startOffset-1 + 'px'"
+                      [style.width]="cellWidth*(item.endDay - item.startDay+1) - cellWidth*item.startOffset+'px'"
+                      [style.height]="defaultCellHeight-2+'px'"><span>{{item.title}}</span></div>
+                  </ng-container>
+
+                  <!-- <div class="sch-item position-absolute rounded-start bg-danger " style="top:30px; left:50%; "
                     [style.width]="cellWidth*4+'px'"
                     [style.height]="defaultCellHeight+'px'">
                     dfadf
-                  </div>
+                  </div> -->
                 </div>
               </td>
             </ng-container>
             <ng-template #elseBlock>
-              <td id="{{data.strDate}}" class="{{sch.startDate}}" style="min-width:20px;"></td>
+              <td id="{{data.strDate}}" class="{{sch.startDate}} {{data.week == 0 ||data.week==6?' weekend':''}}"
+                style="min-width:20px;"></td>
             </ng-template>
           </ng-container>
-        </ng-container>
-
-        <!-- <td></td>
-                <td></td>
-    <td class="sch-cell p-0">
-                    <div class="sch-cell-content">
-                        <div class="sch-item-1"></div>
-                    </div>
-                </td>
-                <td class="p-0"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td> -->
       </tr>
+    </ng-container>
     </tbody>
   </table>
 </div>
